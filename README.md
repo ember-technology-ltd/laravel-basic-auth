@@ -16,7 +16,7 @@ Add the repository to the app's `composer.json`:
 "repositories": [
     {
         "type": "vcs",
-        "url": "git@github.com:ember-technology-ltd/laravel-basic-auth.git"
+        "url": "https://github.com/ember-technology-ltd/laravel-basic-auth"
     }
 ]
 ```
