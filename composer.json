@@ -1,0 +1,41 @@
+{
+    "name": "ember-technology-ltd/laravel-basic-auth",
+    "description": "Env-driven, site-wide HTTP basic auth for Laravel and Statamic staging/demo environments.",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.2",
+        "illuminate/http": "^8.0|^9.0|^10.0|^11.0|^12.0|^13.0",
+        "illuminate/routing": "^8.0|^9.0|^10.0|^11.0|^12.0|^13.0",
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0|^13.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+        "phpunit/phpunit": "^9.5|^10.5|^11.5|^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ember\\BasicAuth\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ember\\BasicAuth\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ember\\BasicAuth\\BasicAuthServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

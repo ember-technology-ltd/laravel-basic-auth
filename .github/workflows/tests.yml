@@ -1,0 +1,43 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { laravel: '8.*',  testbench: '6.*',  php: '8.2' }
+          - { laravel: '9.*',  testbench: '7.*',  php: '8.2' }
+          - { laravel: '10.*', testbench: '8.*',  php: '8.2' }
+          - { laravel: '11.*', testbench: '9.*',  php: '8.2' }
+          - { laravel: '12.*', testbench: '10.*', php: '8.2' }
+          - { laravel: '12.*', testbench: '10.*', php: '8.4' }
+          - { laravel: '13.*', testbench: '11.*', php: '8.3' }
+          - { laravel: '13.*', testbench: '11.*', php: '8.4' }
+
+    name: Laravel ${{ matrix.laravel }} / PHP ${{ matrix.php }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Install dependencies
+        run: |
+          # Old Laravel majors have open advisories and Composer refuses to
+          # install them by default. This only affects the test matrix.
+          composer config policy.advisories.block false
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --dev --no-update --no-interaction
+          composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Run tests
+        run: vendor/bin/phpunit
